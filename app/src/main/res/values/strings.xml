@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MoviesApp</string>
+
+    <!--dialogs-->
+    <string name="positive_value">ДА</string>
+    <string name="negative_value">НЕТ</string>
+    <string name="ok_value">ОК</string>
+    <string name="cancel_value">ОТМЕНА</string>
+    <string name="no_connect">Нет соединения!</string>
+    <string name="confirm_operation">Подтвердите операцию!</string>
+    <string name="no_connect_message">Для работы приложения необходимо подключить связь</string>
+    <string name="additives">Добавки</string>
+
+
+</resources>
