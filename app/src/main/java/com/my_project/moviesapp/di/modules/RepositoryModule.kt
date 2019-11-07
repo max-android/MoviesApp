@@ -1,6 +1,9 @@
 package com.my_project.moviesapp.di.modules
 
-import com.my_project.moviesapp.data.repository.MainRepository
+import com.my_project.moviesapp.data.network.MoviesService
+import com.my_project.moviesapp.data.repository.category_movies.CategoryMoviesRepository
+import com.my_project.moviesapp.data.repository.main.MainRepository
+import com.my_project.moviesapp.data.repository.movies.MoviesRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -16,9 +19,11 @@ class RepositoryModule {
     @Singleton
     fun provideMainRepository() = MainRepository()
 
+    @Provides
+    @Singleton
+    fun provideMoviesRepository() = MoviesRepository()
 
-    //@Provides
-    //    @Singleton
-    //    fun provideLoginRepository(api: ApiService, dataHolder: UserDataHolder)
-    //    = LoginRepository(api,dataHolder)
+    @Provides
+    @Singleton
+    fun provideCategoryMoviesRepository(api: MoviesService) = CategoryMoviesRepository(api)
 }

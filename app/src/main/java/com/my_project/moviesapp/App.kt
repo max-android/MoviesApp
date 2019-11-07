@@ -5,10 +5,7 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.my_project.moviesapp.di.AppComponent
 import com.my_project.moviesapp.di.DaggerAppComponent
-import com.my_project.moviesapp.di.modules.NetworkModule
-import com.my_project.moviesapp.di.modules.ProviderModule
-import com.my_project.moviesapp.di.modules.RepositoryModule
-import com.my_project.moviesapp.di.modules.RouterModule
+import com.my_project.moviesapp.di.modules.*
 import timber.log.Timber
 
 /**
@@ -32,7 +29,9 @@ class App : Application() {
     private fun initComponent() {
         appComponent = DaggerAppComponent.builder()
             .routerModule(RouterModule())
-            .networkModule(NetworkModule())
+            .interceptorModule(InterceptorModule(this))
+            .kinoNetworkModule(KinoNetworkModule())
+            .movieNetworkModule(MovieNetworkModule())
             .repositoryModule(RepositoryModule())
             .providerModule(ProviderModule(this))
             .build()

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:padding="8dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/contentGuideline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="50dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:elevation="4dp"
+            android:background="@drawable/item_movie_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/contentGuideline"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/titleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="2"
+                style="@style/BaseTextViewStyle"
+                tools:text="Трансформеры"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            </androidx.appcompat.widget.AppCompatTextView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/titleRatingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="2"
+                style="@style/BaseTextViewStyle"
+                android:text="@string/rating"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+            </androidx.appcompat.widget.AppCompatTextView>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/ratingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="2"
+                style="@style/BaseTextViewStyle"
+                tools:text="9.1"
+                app:layout_constraintStart_toEndOf="@+id/titleRatingTextView"
+                app:layout_constraintBottom_toBottomOf="parent">
+            </androidx.appcompat.widget.AppCompatTextView>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/starImageView"
+                app:srcCompat="@drawable/ic_star"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/ratingTextView"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            </androidx.appcompat.widget.AppCompatImageView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/movieImageView"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        fresco:actualImageScaleType="focusCrop"
+        fresco:placeholderImage="@drawable/ic_movie"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:roundedCornerRadius="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -30,8 +30,8 @@ class ResourceProvider(private val context: Context) {
         return context.resources.getDimension(id)
     }
 
-    fun getStringArray(id: Int): Array<String> {
-        return context.resources.getStringArray(id)
+    fun getStringArray(id: Int): List<String> {
+        return context.resources.getStringArray(id).toList()
     }
 
     fun getDimens(id: Int):Int {

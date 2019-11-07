@@ -1,4 +1,4 @@
-package com.my_project.moviesapp.data.repository
+package com.my_project.moviesapp.data.repository.main
 
 /**
  * Created Максим on 27.10.2019.

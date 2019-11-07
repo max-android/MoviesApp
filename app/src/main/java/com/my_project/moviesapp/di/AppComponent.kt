@@ -1,10 +1,13 @@
 package com.my_project.moviesapp.di
 
-import com.my_project.moviesapp.di.modules.NetworkModule
-import com.my_project.moviesapp.di.modules.ProviderModule
-import com.my_project.moviesapp.di.modules.RepositoryModule
-import com.my_project.moviesapp.di.modules.RouterModule
+import com.my_project.moviesapp.di.modules.*
+import com.my_project.moviesapp.presentation.actors.ActorsFragment
+import com.my_project.moviesapp.presentation.category_movies.CategoryMoviesFragment
+import com.my_project.moviesapp.presentation.category_movies.CategoryMoviesViewModel
 import com.my_project.moviesapp.presentation.main.MainActivity
+import com.my_project.moviesapp.presentation.main.MainViewModel
+import com.my_project.moviesapp.presentation.movies.MoviesFragment
+import com.my_project.moviesapp.presentation.movies.MoviesViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -16,7 +19,9 @@ import javax.inject.Singleton
 @Component
     (
     modules = [
-        NetworkModule::class,
+        InterceptorModule::class,
+        MovieNetworkModule::class,
+        KinoNetworkModule::class,
         RepositoryModule::class,
         ProviderModule::class,
         RouterModule::class
@@ -24,4 +29,10 @@ import javax.inject.Singleton
 )
 interface AppComponent {
     fun inject(mainActivity: MainActivity)
+    fun inject(moviesFragment: MoviesFragment)
+    fun inject(categoryMoviesFragment: CategoryMoviesFragment)
+    fun inject(actorsFragment: ActorsFragment)
+    fun inject(mainViewModel: MainViewModel)
+    fun inject(moviesViewModel: MoviesViewModel)
+    fun inject(categoryMoviesViewModel: CategoryMoviesViewModel)
 }

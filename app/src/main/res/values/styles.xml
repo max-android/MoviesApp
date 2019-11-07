@@ -1,11 +1,47 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
+
+        <!-- MaterialDrawer specific values -->
+        <item name="material_drawer_background">@color/colorPrimary</item>
+        <item name="material_drawer_divider">@color/colorBackground</item>
+        <item name="material_drawer_selected">@android:color/transparent</item>
+        <item name="material_drawer_primary_text">@color/colorSecondaryText</item>
+        <item name="material_drawer_selected_text">@color/white</item>
+        <item name="material_drawer_primary_icon">@color/colorDivider</item>
     </style>
 
+    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@color/white</item>
+    </style>
+
+    <style name="TabText" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:color">@color/colorSecondaryText</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="TitleTextViewStyle">
+        <item name="android:textSize">@dimen/middle_text_size</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="BaseTextViewStyle">
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
 </resources>

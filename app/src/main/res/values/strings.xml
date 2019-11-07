@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">MoviesApp</string>
+    <string name="main_item">Главная</string>
+    <string name="actors_item">Актеры</string>
+    <string name="empty_text"> </string>
 
     <!--dialogs-->
     <string name="positive_value">ДА</string>
@@ -10,6 +13,16 @@
     <string name="confirm_operation">Подтвердите операцию!</string>
     <string name="no_connect_message">Для работы приложения необходимо подключить связь</string>
     <string name="additives">Добавки</string>
+
+    <!--MoviesFragment-->
+    <string name="rating">Рейтинг:</string>
+
+
+    <!--CategoryMoviesFragment-->
+
+
+   <!--ActorsFragment-->
+
 
 
 </resources>
