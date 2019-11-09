@@ -33,7 +33,7 @@ abstract class BaseFragment: Fragment()  {
 
     protected fun removeProgress() = preloaderLinearLayout.gone()
 
-    open fun showError(error: Throwable) {
+    open fun showBaseError(error: Throwable) {
         Timber.e(error)
         removeProgress()
         if (error is ConnectException)

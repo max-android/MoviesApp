@@ -35,27 +35,70 @@ class CategoryMoviesFragment : BaseFragment() {
         }
     }
 
-
     private var movieLayoutManager: LinearLayoutManager =
         LinearLayoutManager(this@CategoryMoviesFragment.context, LinearLayoutManager.VERTICAL, false)
     private var cData: String? = null
     private lateinit var viewModel: CategoryMoviesViewModel
     private lateinit var movieAdapter: MovieAdapter
     private var updateScreen = true
-    private var currentPage = 0
-    private var totalPage = 0
+    private var countPage = 1
 
     override fun getLayoutRes(): Int = R.layout.fragment_category
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        PRINT("onActivityCreated()")
         viewModel = ViewModelProvider(this).get(CategoryMoviesViewModel::class.java)
         init(savedInstanceState)
     }
 
+    private fun PRINT(text:String){
+        cData?.let {
+            if(it == TOP_RATED){
+            Timber.tag("--LIFE--").i(text)
+            }
+            if(it == NOW_PLAYING){
+                Timber.tag("--LIFE-now--").i(text)
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        PRINT("onCreate()")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        PRINT("onStart()")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        PRINT("onResume()")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        PRINT("onPause()")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        PRINT("onStop()")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        PRINT("onDestroy()")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        PRINT("onDestroyView()")
         updateScreen = false
+        if(viewModel.listWithPagin)
+        viewModel.statusDestroyView = true
     }
 
     private fun init(savedInstanceState: Bundle?) {
@@ -71,6 +114,8 @@ class CategoryMoviesFragment : BaseFragment() {
 
     private fun initData() {
         cData = arguments?.getString(CATEGORY_KEY)
+        if(viewModel.listWithPagin)
+        countPage = viewModel.vmCountPage
         //TODO
         Timber.tag("--DATA").i(cData)
     }
@@ -88,6 +133,11 @@ class CategoryMoviesFragment : BaseFragment() {
 
     private fun refreshScreen() {
         swipeRefreshLayout.isRefreshing = true
+        if(viewModel.listWithPagin){
+           viewModel.clearDataForPagin()
+            movieAdapter.clearList()
+            countPage = 1
+        }
         requestMovies()
         swipeRefreshLayout.isRefreshing = false
     }
@@ -95,9 +145,9 @@ class CategoryMoviesFragment : BaseFragment() {
     private fun initAdapter() {
         movieAdapter = MovieAdapter()
         movieRecyclerView.apply {
-            //TODO
-            //layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false)
-            layoutManager = movieLayoutManager
+            if(layoutManager == null){
+                layoutManager = movieLayoutManager
+            }
             addItemDecoration(DividerItemDecoration(context!!, LinearLayout.VERTICAL))
             addOnScrollListener(recyclerScrollListener)
             adapter = movieAdapter
@@ -109,7 +159,7 @@ class CategoryMoviesFragment : BaseFragment() {
     private fun processViewState(viewState: CategoryMoviesState?) {
         viewState?.let {
             when (it) {
-                is Loading ->  showLoading()
+                is Loading -> showLoading()
                 is SuccessCategoryMovies -> showMovies(it.movies)
                 is ErrorCategoryMovies -> showError(it.error)
             }
@@ -124,17 +174,51 @@ class CategoryMoviesFragment : BaseFragment() {
 
     private fun showMovies(category: Category) {
         if(category.page != null && category.total_pages != null){
-            currentPage = category.page
-            totalPage = category.total_pages
-            viewModel.vmCurrentPage = category.page
             viewModel.vmTotalPage = category.total_pages
+            viewModel.vmCountPage = category.page
+            recyclerScrollListener.stopLoading()
             //TODO
-            Timber.tag("PAGIN-currentPage:").i(currentPage.toString())
-            Timber.tag("PAGIN-totalPage:").i(totalPage.toString())
+            Timber.tag("PAGIN-viewModel.vmCountPage:").i(viewModel.vmTotalPage.toString())
+            Timber.tag("PAGIN-totalPage:").i(viewModel.vmTotalPage.toString())
         }
-        Timber.tag("--DATA-LIST").i(category.results.size.toString())
-        movieAdapter.submitList(category.results)
+
+        if(viewModel.listWithPagin){
+            if(viewModel.statusDestroyView){
+                movieAdapter.addMovies(viewModel.vmListMovies)
+                viewModel.statusDestroyView = false
+                //TODO
+                Timber.tag("PAGIN-ПЕРЕВОРОТ И ПРОЧЕЕ:").i(viewModel.vmListMovies.size.toString())
+                viewModel.vmListMovies.forEach {
+                    Timber.tag("PAGIN--------------------").i(it.title+"-------"+it.id)
+                }
+            }else{
+                movieAdapter.addMovies(category.results)
+                //TODO
+                Timber.tag("PAGIN-СТАНДАРТ:").i(viewModel.vmTotalPage.toString())
+                category.results.forEach {
+                    Timber.tag("PAGIN--------------------").i(it.title+"-------"+it.id)
+                }
+            }
+            viewModel.vmListMovies = movieAdapter.currentList.toMutableList()
+            Timber.tag("PAGIN-movieAdapter.fullList:").i(viewModel.vmListMovies.size.toString())
+        }else{
+            movieAdapter.submitList(category.results)
+        }
         movieAdapter.onItemClick { onItemCityClick(it) }
+        updateUiIfShowMoves()
+    }
+
+    private fun showError(error: Throwable){
+        if(viewModel.listWithPagin){ recyclerScrollListener.stopLoading()}
+        if(viewModel.vmListMovies.isEmpty()){
+            super.showBaseError(error)
+        }else{
+            updateUiIfShowMoves()
+            countPage = viewModel.vmCountPage
+        }
+    }
+
+    private fun updateUiIfShowMoves(){
         removeProgress()
         emptyImageView.gone()
         movieRecyclerView.visible()
@@ -144,17 +228,19 @@ class CategoryMoviesFragment : BaseFragment() {
       //TODO реализовать позже
     }
 
-   //TODO
-    //const val NOW_PLAYING = "Сейчас в кино"
-    //const val POPULAR = "Популярные"
-    //const val TOP_RATED = "Оцененные"
-    //const val UP_COMING = "Скоро"
     private fun requestMovies() {
         cData?.let {
             when (it) {
-                NOW_PLAYING -> viewModel.nowPlayingMovies(it)
-                POPULAR -> viewModel.popularMovies(it, START_PAGE)
-                TOP_RATED -> viewModel.topRatedMovies(it, START_PAGE)
+                NOW_PLAYING ->
+                    viewModel.nowPlayingMovies(it)
+                POPULAR -> {
+                    viewModel.popularMovies(it, START_PAGE)
+                    viewModel.listWithPagin = true
+                }
+                TOP_RATED -> {
+                    viewModel.topRatedMovies(it, START_PAGE)
+                    viewModel.listWithPagin = true
+                }
                 UP_COMING -> viewModel.upcomingMovies(it)
                 else -> throw Exception(CATEGORY_EXC)
             }
@@ -162,17 +248,24 @@ class CategoryMoviesFragment : BaseFragment() {
     }
 
     private fun requestMoviesIfPagination(){
+
+        if(viewModel.listWithPagin){
+            recyclerScrollListener.startLoading()
+            countPage++
+        }
+
         cData?.let {
             when (it) {
                 POPULAR -> {
-                    Timber.tag("PAGIN-current-request:").i(viewModel.vmCurrentPage.toString())
-                    Timber.tag("PAGIN-total-request:").i(viewModel.vmTotalPage.toString())
-                    if(viewModel.vmCurrentPage <= viewModel.vmTotalPage)
-                        viewModel.popularMovies(it, viewModel.vmCurrentPage)
+                    Timber.tag("PAGIN-Scroll: countPage:").i(countPage.toString())
+                    if(countPage <= viewModel.vmTotalPage){
+                        viewModel.popularMovies(it,countPage)
+                    }
                 }
                 TOP_RATED -> {
-                    if(viewModel.vmCurrentPage <= viewModel.vmTotalPage)
-                    viewModel.topRatedMovies(it, START_PAGE)
+                    if(countPage <= viewModel.vmTotalPage){
+                    viewModel.topRatedMovies(it,  countPage)
+                    }
                 }
                 else -> {}
             }
@@ -181,6 +274,7 @@ class CategoryMoviesFragment : BaseFragment() {
 
     private val recyclerScrollListener = object : RecyclerOnScrollListener(movieLayoutManager) {
         override fun onLoadMore() {
+            Timber.tag("PAGIN-Scroll:").i("onLoadMore()")
             requestMoviesIfPagination()
         }
     }

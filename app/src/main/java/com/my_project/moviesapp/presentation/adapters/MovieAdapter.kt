@@ -17,10 +17,20 @@ import com.my_project.moviesapp.utilities.ApiConst
  */
 class MovieAdapter : ListAdapter<BaseMovie, MovieAdapter.MovieHolder>(MovieDiffCallback()) {
 
+    internal var fullList = mutableListOf<BaseMovie>()
     private var action: (item: BaseMovie) -> Unit = { }
 
     fun onItemClick(action: (item: BaseMovie) -> Unit){
         this.action = action
+    }
+
+    fun addMovies(list:List<BaseMovie>){
+        fullList.addAll(list)
+        submitList(fullList)
+    }
+
+    fun clearList(){
+        fullList.clear()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {

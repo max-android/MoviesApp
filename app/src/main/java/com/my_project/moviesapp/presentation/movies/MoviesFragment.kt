@@ -87,7 +87,8 @@ class MoviesFragment : BaseFragment() {
 
     private fun setData() = titles.forEach {
         //TODO убрать
-        if(it=="Популярные")
+       // if(it=="Популярные")
+       // if(it == "Сейчас в кино")
         addMenuToAdapter(it)
     }
 
