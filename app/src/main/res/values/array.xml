@@ -8,7 +8,9 @@
     </string-array>
 
     <string-array name="arrays1">
-        <item>Коллеги</item>
-        <item>Друзья</item>
+        <item>Популярные</item>
+        <item>Сейчас в кино</item>
+        <item>Скоро</item>
     </string-array>
 </resources>
+

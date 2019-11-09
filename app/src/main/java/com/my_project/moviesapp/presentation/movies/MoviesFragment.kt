@@ -13,7 +13,6 @@ import com.my_project.moviesapp.presentation.base.BaseFragment
 import com.my_project.moviesapp.presentation.category_movies.CategoryMoviesFragment
 import com.my_project.moviesapp.utilities.mainActivity
 import kotlinx.android.synthetic.main.fragment_movies.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -71,8 +70,7 @@ class MoviesFragment : BaseFragment() {
         cPagerAdapter = CategoryPagerAdapter(childFragmentManager)
         moviesViewPager.adapter = cPagerAdapter
         menuTabLayout.setupWithViewPager(moviesViewPager)
-        //moviesViewPager.mOnPageChangeListener =
-        menuTabLayout.setOnTabSelectedListener(object:TabLayout.BaseOnTabSelectedListener<TabLayout.Tab>{
+        menuTabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
 
@@ -80,10 +78,15 @@ class MoviesFragment : BaseFragment() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.let { updateTitle(it.position) }
+                tab?.let {
+                    updateTitle(it.position)
+                    updateScreen(it)
+                }
             }
+
         })
     }
+
 
     private fun setData() = titles.forEach {
         //TODO убрать
@@ -93,8 +96,6 @@ class MoviesFragment : BaseFragment() {
     }
 
     private fun addMenuToAdapter(type: String) {
-        //TODO
-        Timber.tag("--DATA-0").i(type)
         cPagerAdapter.addTypesMenu(
             CategoryMoviesFragment.newInstance(type), type
         )
@@ -108,6 +109,10 @@ class MoviesFragment : BaseFragment() {
             TAB_ITEM_THIRD -> titleTextView.text = titles[2]
             TAB_ITEM_FOURTH -> titleTextView.text = titles[3]
         }
+    }
+
+    private fun updateScreen(tab: TabLayout.Tab){
+        moviesViewPager.currentItem = tab.position
     }
 
 }

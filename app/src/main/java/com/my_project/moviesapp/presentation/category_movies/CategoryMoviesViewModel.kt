@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.my_project.moviesapp.App
 import com.my_project.moviesapp.data.entities.category_movies.BaseMovie
+import com.my_project.moviesapp.data.entities.category_movies.Category
 import com.my_project.moviesapp.data.repository.category_movies.CategoryMoviesRepository
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -97,6 +98,10 @@ class CategoryMoviesViewModel : ViewModel() {
             ).addTo(subscriptions)
     }
 
+    fun setEmptyState() {
+        cLiveData.value =
+            SuccessCategoryMovies(Category(null,vmCountPage,null,vmTotalPage, emptyList<BaseMovie>()))
+    }
 
     private fun startProgress() {
         cLiveData.postValue(Loading)
