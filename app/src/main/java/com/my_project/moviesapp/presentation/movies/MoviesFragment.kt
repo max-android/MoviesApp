@@ -1,7 +1,6 @@
 package com.my_project.moviesapp.presentation.movies
 
 import android.os.Bundle
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
@@ -36,7 +35,6 @@ class MoviesFragment : BaseFragment() {
     private lateinit var viewModel: MoviesViewModel
     private lateinit var cPagerAdapter: CategoryPagerAdapter
     private lateinit var  titles: List<String>
-    private lateinit var titleTextView:AppCompatTextView
 
     override fun getLayoutRes(): Int = R.layout.fragment_movies
 
@@ -61,8 +59,7 @@ class MoviesFragment : BaseFragment() {
     private fun updateToolBar() {
         mainActivity?.apply {
             updateToolBar(false)
-            titleTextView = toolBar.findViewById<AppCompatTextView>(R.id.titleTextView)
-                titleTextView.text = rProvider.getString(R.string.empty_text)
+            titleToolBar.text = rProvider.getString(R.string.empty_text)
         }
     }
 
@@ -104,10 +101,10 @@ class MoviesFragment : BaseFragment() {
 
     private fun updateTitle(item:Int){
         when(item){
-            TAB_ITEM_FIRST -> titleTextView.text = titles[0]
-            TAB_ITEM_SECOND -> titleTextView.text = titles[1]
-            TAB_ITEM_THIRD -> titleTextView.text = titles[2]
-            TAB_ITEM_FOURTH -> titleTextView.text = titles[3]
+            TAB_ITEM_FIRST -> mainActivity?.titleToolBar?.text = titles[0]
+            TAB_ITEM_SECOND ->  mainActivity?.titleToolBar?.text = titles[1]
+            TAB_ITEM_THIRD ->  mainActivity?.titleToolBar?.text = titles[2]
+            TAB_ITEM_FOURTH ->  mainActivity?.titleToolBar?.text = titles[3]
         }
     }
 

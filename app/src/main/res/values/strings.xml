@@ -16,7 +16,10 @@
 
     <!--MoviesFragment-->
     <string name="rating">Рейтинг:</string>
-
+    <string name="review_item">Ревью</string>
+    <string name="video_item">Видео</string>
+    <string name="select_detail">Выберите пункт:</string>
+    <string name="cancel">ОТМЕНА</string>
 
     <!--CategoryMoviesFragment-->
 
@@ -24,5 +27,14 @@
    <!--ActorsFragment-->
 
 
+    <!--VideoMovieFragment-->
+    <string name="title_video_film">Видео фильма %s</string>
+
+    <!--ReviewMovieFragment-->
+    <string name="web_link">WEB LINK</string>
+    <string name="title_review_film">Ревью фильма %s</string>
+
+    <!--WebViewReviewFragment-->
+    <string name="web_version_review">Веб версия ревью</string>
 
 </resources>

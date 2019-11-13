@@ -3,8 +3,13 @@ package com.my_project.moviesapp.router
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.my_project.moviesapp.R
+import com.my_project.moviesapp.data.entities.review.ReviewEntity
+import com.my_project.moviesapp.data.entities.video.VideoEntity
 import com.my_project.moviesapp.presentation.actors.ActorsFragment
 import com.my_project.moviesapp.presentation.movies.MoviesFragment
+import com.my_project.moviesapp.presentation.review.ReviewMovieFragment
+import com.my_project.moviesapp.presentation.video.VideoMovieFragment
+import com.my_project.moviesapp.presentation.web_review.WebViewReviewFragment
 import timber.log.Timber
 
 /**
@@ -15,6 +20,7 @@ class Router {
 
     private var fragmentManager: FragmentManager? = null
     var actualScreen: Screen = Screen.MOVIES
+    var movie = false
 
     fun init(fragmentManager: FragmentManager?) {
         this.fragmentManager = fragmentManager
@@ -81,7 +87,9 @@ class Router {
         return when (screen) {
             Screen.MOVIES -> MoviesFragment.newInstance()
             Screen.ACTORS -> ActorsFragment.newInstance()
-
+            Screen.VIDEO -> VideoMovieFragment.newInstance(data as VideoEntity)
+            Screen.REVIEW -> ReviewMovieFragment.newInstance(data as ReviewEntity)
+            Screen.WEB_REVIEW -> WebViewReviewFragment.newInstance(data as String)
         }
     }
 
@@ -90,8 +98,9 @@ class Router {
     //при расширении там будет больше кода и тут также надо будет добавлять код
     private fun updateActualBackScreen() {
         actualScreen = when (actualScreen) {
-//            Screen.DELIVERY -> Screen.BASKET
-//            Screen.SEARCH -> Screen.MENU
+            Screen.VIDEO -> Screen.MOVIES
+            Screen.REVIEW -> Screen.MOVIES
+            Screen.WEB_REVIEW -> Screen.REVIEW
             else -> Screen.MOVIES
         }
     }

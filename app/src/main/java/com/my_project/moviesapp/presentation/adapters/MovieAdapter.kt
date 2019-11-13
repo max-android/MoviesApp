@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.drawee.view.SimpleDraweeView
 import com.my_project.moviesapp.R
 import com.my_project.moviesapp.data.entities.category_movies.BaseMovie
 import com.my_project.moviesapp.utilities.ApiConst
+import timber.log.Timber
 
 /**
  * Created Максим on 04.11.2019.
@@ -21,6 +23,7 @@ class MovieAdapter : ListAdapter<BaseMovie, MovieAdapter.MovieHolder>(MovieDiffC
     private var action: (item: BaseMovie) -> Unit = { }
 
     fun onItemClick(action: (item: BaseMovie) -> Unit){
+        Timber.tag("--VIDEO-onItemClick:").i("onItemClick")
         this.action = action
     }
 
@@ -47,10 +50,11 @@ class MovieAdapter : ListAdapter<BaseMovie, MovieAdapter.MovieHolder>(MovieDiffC
         private var titleTextView = containerView.findViewById(R.id.titleTextView) as AppCompatTextView
         private var ratingTextView = containerView.findViewById(R.id.ratingTextView) as AppCompatTextView
         private var movieImageView = containerView.findViewById(R.id.movieImageView) as SimpleDraweeView
+        private var contentLayout = containerView.findViewById(R.id.contentLayout) as ConstraintLayout
 
         private lateinit var baseMovie: BaseMovie
 
-        init { containerView.setOnClickListener { action(baseMovie) } }
+        init { contentLayout.setOnClickListener { action(baseMovie) } }
 
         fun bindTo(movie: BaseMovie) {
             this.baseMovie = movie

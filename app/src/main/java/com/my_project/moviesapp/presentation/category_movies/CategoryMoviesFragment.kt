@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.my_project.moviesapp.R
 import com.my_project.moviesapp.data.entities.category_movies.BaseMovie
 import com.my_project.moviesapp.data.entities.category_movies.Category
+import com.my_project.moviesapp.data.entities.review.ReviewEntity
+import com.my_project.moviesapp.data.entities.video.VideoEntity
 import com.my_project.moviesapp.presentation.adapters.MovieAdapter
 import com.my_project.moviesapp.presentation.adapters.RecyclerOnScrollListener
 import com.my_project.moviesapp.presentation.base.BaseFragment
@@ -184,7 +186,7 @@ class CategoryMoviesFragment : BaseFragment() {
         } else {
             movieAdapter.submitList(category.results)
         }
-        movieAdapter.onItemClick { onItemCityClick(it) }
+        movieAdapter.onItemClick { onItemMovieClick(it) }
         updateUiIfShowMoves()
     }
 
@@ -198,6 +200,7 @@ class CategoryMoviesFragment : BaseFragment() {
             updateUiIfShowMoves()
             countPage = viewModel.vmCountPage
         }
+        emptyImageView.visible()
     }
 
     private fun updateUiIfShowMoves() {
@@ -206,8 +209,12 @@ class CategoryMoviesFragment : BaseFragment() {
         movieRecyclerView.visible()
     }
 
-    private fun onItemCityClick(baseMovie: BaseMovie) {
-        //TODO реализовать позже
+    private fun onItemMovieClick(baseMovie: BaseMovie) {
+        Timber.tag("--VIDEO-onItemMovieClick").i(baseMovie.id.toString()+"---"+baseMovie.title)
+        DialogUtils(context!!).showDetailMessage(viewLifecycleOwner,
+            { viewModel.showVideos(VideoEntity(baseMovie.id.toString(),baseMovie.title))},
+            { viewModel.showReviews(ReviewEntity(baseMovie.id.toString(),baseMovie.title))}
+        )
     }
 
     private fun requestMovies() {

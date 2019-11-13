@@ -1,7 +1,6 @@
 package com.my_project.moviesapp.presentation.actors
 
 import android.os.Bundle
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import com.my_project.moviesapp.R
 import com.my_project.moviesapp.data.provider.ResourceProvider
@@ -37,9 +36,7 @@ class ActorsFragment: BaseFragment() {
     private fun updateToolBar(){
         mainActivity?.apply {
             updateToolBar(false)
-            supportActionBar?.title = rProvider.getString(R.string.actors_item)
-            toolBar.findViewById<AppCompatTextView>(R.id.titleTextView).text =
-                rProvider.getString(R.string.actors_item)
+            titleToolBar.text = rProvider.getString(R.string.actors_item)
         }
     }
 

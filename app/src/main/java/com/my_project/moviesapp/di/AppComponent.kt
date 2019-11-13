@@ -8,6 +8,9 @@ import com.my_project.moviesapp.presentation.main.MainActivity
 import com.my_project.moviesapp.presentation.main.MainViewModel
 import com.my_project.moviesapp.presentation.movies.MoviesFragment
 import com.my_project.moviesapp.presentation.movies.MoviesViewModel
+import com.my_project.moviesapp.presentation.review.ReviewMovieViewModel
+import com.my_project.moviesapp.presentation.video.VideoMovieFragment
+import com.my_project.moviesapp.presentation.video.VideoMovieViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -35,4 +38,7 @@ interface AppComponent {
     fun inject(mainViewModel: MainViewModel)
     fun inject(moviesViewModel: MoviesViewModel)
     fun inject(categoryMoviesViewModel: CategoryMoviesViewModel)
+    fun inject(videoMovieViewModel: VideoMovieViewModel)
+    fun inject(videoMovieFragment: VideoMovieFragment)
+    fun inject(reviewMovieViewModel: ReviewMovieViewModel)
 }

@@ -30,6 +30,9 @@ class MainActivity : DrawerActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Timber.tag("--VIDEO-act").i("onCreate()")
+
         App.appComponent.inject(this)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         router.init(supportFragmentManager)
@@ -39,15 +42,13 @@ class MainActivity : DrawerActivity() {
 
     override fun onBackPressed() = when (router.actualScreen) {
         Screen.MOVIES,Screen.ACTORS -> if (drawer.isDrawerOpen) drawer.closeDrawer() else super.onBackPressed()
-//        Screen.DELIVERY -> {
-//            Timber.tag("--PRESS").i("Screen.DELIVERY")
-//            if (drawer.isDrawerOpen) drawer.closeDrawer() else viewModel.back()
-//        }
+        Screen.VIDEO,Screen.REVIEW,Screen.WEB_REVIEW -> viewModel.back()
     }
 
     override fun onDestroy() {
         router.detach()
         super.onDestroy()
+        Timber.tag("--VIDEO-act").i("onDestroy()")
     }
 
     private fun init(){
@@ -76,10 +77,8 @@ class MainActivity : DrawerActivity() {
 
     private fun selectItemDrawer(item: Int) {
         when (item) {
-
             MOVIES_ITEM -> {
                 viewModel.showMovies()
-                Timber.tag("--PRESS").i("MOVIES_ITEM")
             }
 
             ACTORS_ITEM -> {
@@ -99,14 +98,15 @@ class MainActivity : DrawerActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         toolBar.navigationIcon = rProvider.getDrawable(R.drawable.ic_arrow_back)
+        //TODO
         Timber.tag("--PRESS").i("showBackArrow()")
     }
 
     private fun showHamburgerIcon() {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         drawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = true
+        //TODO
         Timber.tag("--PRESS").i("showHamburgerIcon()")
     }
-
 
 }

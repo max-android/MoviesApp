@@ -2,10 +2,13 @@ package com.my_project.moviesapp.data.network
 
 import com.my_project.moviesapp.data.entities.category_movies.Movie
 import com.my_project.moviesapp.data.entities.category_movies.TotalMovie
+import com.my_project.moviesapp.data.entities.review.TotalReviewMovie
+import com.my_project.moviesapp.data.entities.video.TotalVideoMovie
 import com.my_project.moviesapp.utilities.ApiConst
 import com.my_project.moviesapp.utilities.ApiConst.RU
 import io.reactivex.Single
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -47,8 +50,25 @@ interface MoviesService {
         @Query("api_key") api_key: String = ApiConst.API_KEY
     ): Single<Movie>
 
+    //https://api.themoviedb.org/3/movie/475557/videos?language=ru&api_key=befc7872520fd736c58948abb2f4a53c
+    @GET("{movie_id}/videos?")
+    fun videos(
+        @Path("movie_id") movie_id: String,
+        @Query("language") language: String = RU,
+        @Query("api_key") api_key: String = ApiConst.API_KEY
+    ): Single<TotalVideoMovie>
 
-    //РАЗДЕЛ movies
+
+    //https://api.themoviedb.org/3/movie/475557/reviews?language=ru&api_key=befc7872520fd736c58948abb2f4a53c
+    @GET("{movie_id}/reviews?")
+    fun reviews(
+        @Path("movie_id") movie_id: String,
+       // @Query("language") language: String = RU,
+        @Query("api_key") api_key: String = ApiConst.API_KEY
+    ): Single<TotalReviewMovie>
+
+
+
 
     //Path Params - movie_id
     //https://api.themoviedb.org/3/movie/475557/videos?api_key=befc7872520fd736c58948abb2f4a53c

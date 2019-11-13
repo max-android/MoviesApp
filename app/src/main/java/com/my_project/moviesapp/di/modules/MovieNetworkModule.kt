@@ -31,8 +31,6 @@ class MovieNetworkModule {
                     it.level = HttpLoggingInterceptor.Level.BODY
                 })
                 addInterceptor(interceptor.connectInterceptor())
-                //TODO - убрать
-                //addInterceptor(interceptor.headerInterceptor())
                 connectTimeout(ApiConst.CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
                 readTimeout(ApiConst.READ_TIMEOUT, TimeUnit.MILLISECONDS)
                 writeTimeout(ApiConst.WRITE_TIMEOUT, TimeUnit.MILLISECONDS)

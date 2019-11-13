@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/item_background_ripple"
+    android:padding="16dp"
+    android:layout_margin="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+ <androidx.appcompat.widget.AppCompatTextView
+     android:id="@+id/contentReviewTextView"
+     style="@style/BaseTextViewStyle"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+ </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/authorTextView"
+        style="@style/BaseTextViewStyle"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/colorAccent"
+        android:gravity="start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </androidx.appcompat.widget.AppCompatTextView>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/linkTextView"
+        style="@style/BaseTextViewStyle"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/colorAccent"
+        android:padding="8dp"
+        android:autoLink="web"
+        android:textSize="16sp"
+        android:text="@string/web_link"
+        android:gravity="start|center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/item_background_ripple"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp">
+    </androidx.appcompat.widget.AppCompatTextView>
+</LinearLayout>

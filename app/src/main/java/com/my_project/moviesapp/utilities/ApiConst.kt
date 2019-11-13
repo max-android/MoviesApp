@@ -15,6 +15,8 @@ object ApiConst {
     const val SMALL_IMAGE_URL = "https://image.tmdb.org/t/p/w45/"
     const val MIDDLE_IMAGE_URL = "https://image.tmdb.org/t/p/w185/"
     const val RU = "ru"
+    const val BASE_YOUTUBE_URL = "https://www.youtube.com/watch?v="
+
 
     //TODO удалить
     const val GEO_KEY = "AIzaSyC_Q4lLyqI9bBU0iwIGXsQ1Y1hWiGgx2VQ"

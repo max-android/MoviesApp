@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/selectLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/AppTheme"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center_horizontal"
+        android:text="@string/select_detail"
+        android:textColor="@color/black"
+        android:textSize="21sp">
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/showVideoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/video_item"
+        android:textSize="21sp"
+        android:layout_margin="16dp"
+        android:background="@drawable/item_background_ripple"
+        android:textColor="@color/colorAccent">
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/showReviewButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/review_item"
+        android:textSize="21sp"
+        android:layout_margin="16dp"
+        android:background="@drawable/item_background_ripple"
+        android:textColor="@color/colorAccent">
+
+    </androidx.appcompat.widget.AppCompatButton>
+</androidx.appcompat.widget.LinearLayoutCompat>

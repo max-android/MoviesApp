@@ -16,10 +16,11 @@
         app:layout_constraintGuide_begin="50dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contentLayout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:elevation="4dp"
-            android:background="@drawable/item_movie_ripple"
+            android:background="@drawable/item_background_ripple"
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"

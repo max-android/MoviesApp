@@ -4,10 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.my_project.moviesapp.App
 import com.my_project.moviesapp.data.entities.category_movies.BaseMovie
-import com.my_project.moviesapp.data.entities.category_movies.Category
+import com.my_project.moviesapp.data.entities.review.ReviewEntity
+import com.my_project.moviesapp.data.entities.video.VideoEntity
 import com.my_project.moviesapp.data.repository.category_movies.CategoryMoviesRepository
+import com.my_project.moviesapp.router.Router
+import com.my_project.moviesapp.router.Screen
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -18,6 +22,8 @@ class CategoryMoviesViewModel : ViewModel() {
 
     @Inject
     lateinit var cvRepository: CategoryMoviesRepository
+    @Inject
+    lateinit var router: Router
     private val subscriptions = CompositeDisposable()
     val cLiveData = MutableLiveData<CategoryMoviesState>()
     //TODO  все переменные далее только для случаев с пагинацией
@@ -98,13 +104,17 @@ class CategoryMoviesViewModel : ViewModel() {
             ).addTo(subscriptions)
     }
 
-    fun setEmptyState() {
-        cLiveData.value =
-            SuccessCategoryMovies(Category(null,vmCountPage,null,vmTotalPage, emptyList<BaseMovie>()))
-    }
-
     private fun startProgress() {
         cLiveData.postValue(Loading)
+    }
+
+    fun showVideos(video: VideoEntity) {
+        Timber.tag("--VIDEO-showVideos:").i("showVideos")
+        router.forward(Screen.VIDEO, video)
+    }
+
+    fun showReviews(review: ReviewEntity) {
+        router.forward(Screen.REVIEW, review)
     }
 
     override fun onCleared() {

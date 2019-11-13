@@ -1,8 +1,13 @@
 package com.my_project.moviesapp.utilities
 
 import android.content.Context
+import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.LifecycleOwner
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
+import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.customview.getCustomView
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.my_project.moviesapp.R
 
 
@@ -21,6 +26,26 @@ class DialogUtils (val context: Context) {
             positiveButton(R.string.ok_value) { dialog ->
                 dialog.dismiss()
             }
+        }
+    }
+
+
+    fun showDetailMessage(owner:LifecycleOwner,showVideo: () -> Unit, showReview: () -> Unit) {
+        MaterialDialog(context).show {
+            cornerRadius(16f)
+            customView(R.layout.dialog_layout, scrollable = true)
+            val showVideoButton= getCustomView().findViewById<AppCompatButton>(R.id.showVideoButton)
+            val showReviewButton= getCustomView().findViewById<AppCompatButton>(R.id.showReviewButton)
+            showVideoButton.setOnClickListener {
+                showVideo()
+                dismiss()
+            }
+            showReviewButton.setOnClickListener {
+                showReview()
+                dismiss()
+            }
+            negativeButton(R.string.cancel) { dialog -> dialog.dismiss() }
+            lifecycleOwner(owner)
         }
     }
 

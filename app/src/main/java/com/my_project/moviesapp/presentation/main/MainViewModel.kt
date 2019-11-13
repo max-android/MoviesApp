@@ -23,4 +23,6 @@ class MainViewModel : ViewModel() {
 
     fun showActors() = router.replace(Screen.ACTORS)
 
+    fun back() = router.back()
+
 }

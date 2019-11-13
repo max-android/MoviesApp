@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorBackground</item>
         <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="md_background_color">@color/colorBackground</item>
 
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
 

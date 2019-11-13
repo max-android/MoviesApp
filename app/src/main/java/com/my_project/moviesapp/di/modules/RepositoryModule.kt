@@ -4,6 +4,8 @@ import com.my_project.moviesapp.data.network.MoviesService
 import com.my_project.moviesapp.data.repository.category_movies.CategoryMoviesRepository
 import com.my_project.moviesapp.data.repository.main.MainRepository
 import com.my_project.moviesapp.data.repository.movies.MoviesRepository
+import com.my_project.moviesapp.data.repository.review.ReviewMovieRepository
+import com.my_project.moviesapp.data.repository.video.VideoMovieRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -26,4 +28,14 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideCategoryMoviesRepository(api: MoviesService) = CategoryMoviesRepository(api)
+
+    @Provides
+    @Singleton
+    fun provideVideoRepository(api: MoviesService) = VideoMovieRepository(api)
+
+    @Provides
+    @Singleton
+    fun provideReviewMovieRepository(api: MoviesService) = ReviewMovieRepository(api)
+
+
 }

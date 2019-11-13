@@ -2,6 +2,7 @@ package com.my_project.moviesapp.presentation.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -24,6 +25,7 @@ open class DrawerActivity: AppCompatActivity() {
 
     lateinit var toolBar: Toolbar
     lateinit var drawer: Drawer
+    lateinit var titleToolBar: AppCompatTextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,7 @@ open class DrawerActivity: AppCompatActivity() {
     private fun  initToolbar(){
         toolBar = findViewById(R.id.toolBar)
         setSupportActionBar(mainToolBar)
+        titleToolBar = toolBar.findViewById<AppCompatTextView>(R.id.titleTextView)
     }
 
     private fun  initDrawer() {
